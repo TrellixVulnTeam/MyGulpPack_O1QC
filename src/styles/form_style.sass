@@ -1,0 +1,145 @@
+@import 'static_style.sass'
+
+
+body
+    font-size: 16px
+    background: $color-white
+    font-family: 'Open Sans'
+    font-weight: 400
+    display: flex
+    align-items: center
+    justify-content: center
+    min-height: 100vh
+    margin: 0
+
+svg
+    fill: $midle_color
+    &:hover
+        fill: $color-primary
+    &:hover .form__active::after
+        color: red
+h4
+    font-size: 12px
+    color: $color-white
+
+.container
+    background-color: $color-white
+    border-radius: 15px
+    box-shadow: 0 2px 20px $shadow_color
+    width: 400px
+    &:hover
+        box-shadow: none
+        transition: all 0.3s ease
+
+.form__title
+    margin-left: 25px
+
+.form
+    padding: 30px 40px 30px 25px
+
+.form__item
+    margin-bottom: 5px
+    padding-bottom: 5px
+    position: relative
+
+    label
+        color: $midle_color
+        display: block
+        margin-bottom: 5px
+
+    input, select
+        border: 2px solid $color-primary
+        border-radius: 10px
+        display: block
+        width: 100%
+        padding: 10px
+        font-size: 14px
+
+input, select
+    &:focus
+        outline: 0
+        border-color: $color-primary
+
+select
+    -webkit-appearance: none
+    -moz-appearance: none
+    appearance: none
+    background: $color-white
+
+select option 
+    background: #60258e
+    color: #fff
+
+
+.select__arrow
+    position: absolute
+    right: 10px
+    bottom: 7px
+
+.item__label
+    margin-left: 8px
+
+.form__help
+    display: flex
+    gap: 10px
+
+.form__icon
+    position: absolute
+    bottom: 9px
+    right: -29px
+    transition: all 0.3s ease 
+    &:hover + .form__help-text
+        display: block  
+
+.form__help-text
+    background: $color-primary
+    position: absolute
+    padding: 10px
+    border-radius: 10px
+    display: none
+    right: 0
+    z-index: 5
+
+.form__active::after
+    content: '\2304'
+    position: absolute
+    top: 1px
+    color: $midle_color
+    right: -7px
+    font-size: 25px
+    padding: 18px
+    pointer-events: none
+.form__active:hover::after 
+    color: $color-primary
+
+.form__system::after
+    content: '\2304'
+    position: absolute
+    top: 1px
+    color: $midle_color
+    right: -7px
+    font-size: 25px
+    padding: 18px
+    pointer-events: none
+.form__system:hover::after 
+    color: $color-success
+
+.form__btn
+    position: relative
+    cursor: pointer
+    background: $color-primary
+    border: 2px solid $color-primary
+    border-radius: 10px
+    color: $color-white
+    display: block
+    left: 25px
+    padding: 10px
+    font-size: 16px
+    margin-top:40px
+    width: 90%
+    &:hover
+        background: $color-success
+        border: 2px solid $color-success
+
+.icon__active:hover + .form__system::after
+    color: $midle_color
