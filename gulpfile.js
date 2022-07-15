@@ -10,7 +10,7 @@ const htmlImport = require('gulp-html-import');
 
 const paths = {
     htmls: {
-        src: 'src/html/**/*.html',
+        src: 'src/html/**/*.html', 
         dest:'dest/html'
     },
     style: {
@@ -24,53 +24,47 @@ const paths = {
 };
 
 function htmls() {
-    return gulp.src('src/html/*.html')
-    .pipe(htmlImport('src/html/components'))
-    .pipe(gulp.dest(paths.htmls.dest))
+    return gulp.src('src/html/*.html') // Откуда
+    .pipe(htmlImport('src/html/components/')) // Импорт компонентов в html
+    .pipe(gulp.dest(paths.htmls.dest)) // Куда
 }
 
 function styles() {
-    return gulp.src(paths.style.src)
-    .pipe(sass())
-    .pipe(concat('main.css'))
-    .pipe(gulp.dest(paths.style.dest))
-    .pipe(clean_css())
-    .pipe(concat('main.min.css'))
-    // .pipe(rename({
-    //     extname: '.min.css'
-    // }))
-    .pipe(gulp.dest(paths.style.dest));
+    // Откуда
+    return gulp.src(paths.style.src) // Откуда
+    .pipe(sass()) // Из sass в css
+    .pipe(gulp.dest(paths.style.dest)) // Макс версия
+    .pipe(clean_css()) // Мин версия
+    .pipe(rename({
+        extname: '.min.css' //Добавили приставку мин
+    }))
+    .pipe(gulp.dest(paths.style.dest)); // Куда
 };
 
 function scripts() {
     return gulp.src(paths.scripts.src, {
-        sourcemaps: true
+        sourcemaps: true // Откуда
     })
-    .pipe(babel())
-    .pipe(concat('main.js'))
-    .pipe(gulp.dest(paths.scripts.dest))
-    .pipe(uglify())
-    .pipe(concat('main.min.js'))
-    .pipe(gulp.dest(paths.scripts.dest));
+    .pipe(babel()) // Рекомпилим в старые форматы
+    .pipe(concat('main.js')) // Собираем в 1 файл
+    .pipe(gulp.dest(paths.scripts.dest)) //Куда
+    .pipe(uglify()) // Минифицируем
+    .pipe(concat('main.min.js')) // Собираем в 1 файл
+    .pipe(gulp.dest(paths.scripts.dest)); // Куда
 };
 
-gulp.task('import', function () {
-    gulp.src('./demo/index.html')
-        .pipe(gulpImport('./demo/components/'))
-        .pipe(gulp.dest('dist')); 
-})
-
-function watch() {
+// Чекает изменения в файлах
+function watch() { 
     gulp.watch(paths.htmls.src, htmls);
     gulp.watch(paths.style.src, styles);
     gulp.watch(paths.scripts.src, scripts);
 }
-
+// Удаляет собранную папку
 function clean() {
     return del(['dest']);
 }
 
-const build = gulp.series(clean, gulp.parallel(htmls, styles, scripts), watch);
+const build = gulp.series(clean, gulp.parallel(htmls, styles, scripts), watch); // Поток выполнения задач
 
 exports.clean = clean;
 exports.htmls = htmls;
@@ -79,4 +73,4 @@ exports.styles = styles;
 exports.watch = watch;
 exports.build = build;
 
-exports.default = build;
+exports.default = build; // gulp
